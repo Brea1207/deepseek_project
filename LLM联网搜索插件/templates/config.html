@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Configuration page for LLM Web Search Plugin">
+    <title>LLM Web Search Plugin - Configuration</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+    <meta name="theme-color" content="#4361ee">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --primary-light: #4895ef;
+            --secondary-color: #3f37c9;
+            --accent-color: #560bad;
+            --background-color: #f0f4f8;
+            --card-color: #ffffff;
+            --text-color: #2b2d42;
+            --text-light: #6c757d;
+            --border-color: #e9ecef;
+            --success-color: #4caf50;
+            --warning-color: #ff9800;
+            --error-color: #f44336;
+            --gradient-primary: linear-gradient(135deg, #4361ee, #3a0ca3);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+            --shadow-md: 0 5px 15px rgba(0,0,0,0.07);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+        
+        header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 1.2rem 0;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 1.4rem;
+        }
+        
+        .logo i {
+            font-size: 1.8rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        nav ul li a:hover {
+            color: rgba(255, 255, 255, 0.8);
+            transform: translateY(-2px);
+        }
+        
+        main {
+            flex: 1;
+            padding: 40px 0;
+        }
+        
+        .card {
+            background-color: var(--card-color);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-5px);
+        }
+        
+        h1, h2, h3 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        h1 {
+            font-size: 2rem;
+        }
+        
+        h2 {
+            font-size: 1.6rem;
+            position: relative;
+            padding-bottom: 15px;
+            margin-top: 30px;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary-light);
+            border-radius: 3px;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .section-title i {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+        }
+        
+        form {
+            display: grid;
+            grid-gap: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--accent-color);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: var(--transition);
+            background-color: #fcfcfc;
+            color: var(--text-color);
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        input[type="text"]:hover,
+        input[type="number"]:hover,
+        select:hover,
+        textarea:hover {
+            border-color: var(--primary-light);
+        }
+        
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+            background-color: white;
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            position: relative;
+            width: 18px;
+            height: 18px;
+            margin-right: 12px;
+            -webkit-appearance: none;
+            appearance: none;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .checkbox-group input[type="checkbox"]:checked {
+            background-color: var(--primary-color);
+        }
+        
+        .checkbox-group input[type="checkbox"]:checked::before {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 12px;
+        }
+        
+        .checkbox-group label {
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+        
+        button {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        button:active {
+            transform: translateY(-1px);
+        }
+        
+        .btn-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--text-light);
+            font-size: 14px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 60px;
+            background-color: white;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        footer a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 30px;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .section-title i {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+        }
+        
+        .input-icon {
+            position: relative;
+        }
+        
+        .input-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+        
+        .input-icon input {
+            padding-left: 45px;
+        }
+        
+        .card-header {
+            margin: -30px -30px 25px;
+            padding: 20px 30px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 12px 12px 0 0;
+        }
+        
+        .card-header h2 {
+            color: white;
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            margin-left: 5px;
+        }
+        
+        .tooltip i {
+            color: var(--text-light);
+            font-size: 16px;
+            cursor: help;
+        }
+        
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 14px;
+            font-weight: normal;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .tooltip .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .badge-primary {
+            background-color: var(--primary-light);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                justify-content: center;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-search"></i>
+                <span>LLM Web Search Plugin</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="/llm"><i class="fas fa-robot"></i> LLM交互 | LLM Chat</a></li>
+                    <li><a href="/config"><i class="fas fa-cog"></i> Configuration</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-sliders-h"></i> Configuration Settings</h2>
+                </div>
+                <p>Customize your LLM Web Search Plugin settings below to enhance your search experience.</p>
+                
+                <form method="POST" action="/config">
+                    <div class="grid-2">
+                        <div>
+                            <div class="section-title">
+                                <i class="fas fa-search"></i>
+                                <h3>Search Settings</h3>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="default_search_engine">Default Search Engine</label>
+                                <select id="default_search_engine" name="default_search_engine">
+                                    <option value="google" {% if config.default_search_engine == 'google' %}selected{% endif %}>Google</option>
+                                    <option value="bing" {% if config.default_search_engine == 'bing' %}selected{% endif %}>Bing</option>
+                                    <option value="baidu" {% if config.default_search_engine == 'baidu' %}selected{% endif %}>Baidu</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="default_num_results">Default Number of Results</label>
+                                <div class="tooltip">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span class="tooltip-text">The number of search results to return by default. Higher values may increase response time.</span>
+                                </div>
+                                <input type="number" id="default_num_results" name="default_num_results" value="{{ config.default_num_results }}" min="1" max="20">
+                            </div>
+                            
+                            <div class="form-group checkbox-group">
+                                <input type="checkbox" id="default_fetch_content" name="default_fetch_content" {% if config.default_fetch_content %}checked{% endif %}>
+                                <label for="default_fetch_content">Fetch Detailed Content by Default</label>
+                                <div class="tooltip">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span class="tooltip-text">When enabled, the plugin will fetch the full content of search results. This provides more detailed information but may slow down responses.</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="max_content_length">Maximum Content Length</label>
+                                <div class="tooltip">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span class="tooltip-text">The maximum number of characters to fetch from each search result. Larger values provide more context but use more resources.</span>
+                                </div>
+                                <input type="number" id="max_content_length" name="max_content_length" value="{{ config.max_content_length }}" min="100" max="10000">
+                            </div>
+                            
+                            <div class="section-title">
+                                <i class="far fa-clock"></i>
+                                <h3>Time Retrieval Settings</h3>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="default_timezone">Default Timezone</label>
+                                <select id="default_timezone" name="default_timezone">
+                                    {% for tz in timezones %}
+                                    <option value="{{ tz }}" {% if config.default_timezone == tz %}selected{% endif %}>{{ tz }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="time_sources">Time Sources</label>
+                                <div class="tooltip">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span class="tooltip-text">List of URLs to fetch current time information. Add one URL per line. The plugin will try each source in order until successful.</span>
+                                </div>
+                                <textarea id="time_sources" name="time_sources" rows="5" placeholder="https://example.com/time">{{ '\n'.join(config.time_sources) }}</textarea>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="section-title">
+                                <i class="fas fa-robot"></i>
+                                <h3>LLM Model Settings</h3>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="default_llm_model">Default LLM Model</label>
+                                <div class="tooltip">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span class="tooltip-text">Select the default LLM model to use for generating responses. Different models have different capabilities and resource requirements.</span>
+                                </div>
+                                <select id="default_llm_model" name="default_llm_model">
+                                    <option value="" {% if not config.default_llm_model %}selected{% endif %}>自动检测最佳模型 (Auto-detect Best Model)</option>
+                                    {% for model in llm_models %}
+                                    <option value="{{ model }}" {% if config.default_llm_model == model %}selected{% endif %}>{{ model }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="default_temperature">Default Temperature</label>
+                                <div class="tooltip">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span class="tooltip-text">Controls the randomness of the LLM output. Higher values (e.g., 0.8) make output more random, lower values (e.g., 0.2) make it more deterministic.</span>
+                                </div>
+                                <input type="number" id="default_temperature" name="default_temperature" value="{{ config.default_temperature }}" min="0" max="1" step="0.1">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="default_max_tokens">Default Max Tokens</label>
+                                <div class="tooltip">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span class="tooltip-text">The maximum number of tokens to generate in the LLM response. Higher values allow for longer responses but use more resources.</span>
+                                </div>
+                                <input type="number" id="default_max_tokens" name="default_max_tokens" value="{{ config.default_max_tokens }}" min="100" max="10000">
+                            </div>
+                            
+                            <div class="section-title">
+                                <i class="fas fa-tools"></i>
+                                <h3>Advanced Settings</h3>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="user_agent">User Agent</label>
+                                <div class="tooltip">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span class="tooltip-text">The User-Agent string sent with HTTP requests. Some websites may block requests with certain user agents.</span>
+                                </div>
+                                <input type="text" id="user_agent" name="user_agent" value="{{ config.user_agent }}">
+                            </div>
+                            
+                            <div class="form-group checkbox-group">
+                                <input type="checkbox" id="enable_detailed_logging" name="enable_detailed_logging" {% if config.enable_detailed_logging %}checked{% endif %}>
+                                <label for="enable_detailed_logging">Enable Detailed Logging</label>
+                                <div class="tooltip">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span class="tooltip-text">When enabled, the plugin will log detailed information about requests and responses. Useful for debugging but may increase log size.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button type="submit"><i class="fas fa-save"></i> Save Configuration</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>LLM Web Search Plugin &copy; {{ current_year }}. Developed with <i class="fas fa-heart" style="color: #ff6b6b;"></i> for LLM enthusiasts.</p>
+            <p><small>Version 1.0.0 | <a href="https://github.com" target="_blank"><i class="fab fa-github"></i> GitHub</a></small></p>
+        </div>
+    </footer>
+</body>
+</html>

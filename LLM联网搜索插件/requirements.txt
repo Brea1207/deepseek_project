@@ -1,0 +1,16 @@
+# 基础依赖
+requests==2.31.0
+flask==2.3.3
+beautifulsoup4==4.12.2
+lxml==4.9.3
+python-dotenv==1.0.0
+
+# 命令行参数解析
+argparse>=1.4.0
+
+# 搜索引擎比较工具依赖
+tabulate>=0.9.0
+colorama>=0.4.6
+
+# 可选依赖 - 取消注释以启用特定功能
+# llama-cpp-python>=0.2.0  # 如果使用llama.cpp本地模型
