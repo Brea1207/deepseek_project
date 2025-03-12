@@ -35,8 +35,6 @@ This project is a plugin that provides web search capabilities for locally deplo
 1. 克隆或下载本仓库
 
 ```bash
-git clone https://github.com/yourusername/llm-web-search-plugin.git
-cd llm-web-search-plugin
 ```
 
 2. 安装依赖包
@@ -225,7 +223,7 @@ python test_utils.py --mode compare --query "深度学习框架对比"
 ### Ollama 支持的模型
 
 - llama3 (推荐)
-- deepseek-r1:1.5b / 7b / 67b
+- deepseek-r1:1.5b / 7b / 671b
 - qwen:7b / 14b / 72b
 - yi:34b
 - gemma:7b / 2b
@@ -245,7 +243,6 @@ Ollama 是一个流行的本地模型部署工具，可以轻松运行各种开�
 ollama pull llama3
 # 或者其他模型，如
 # ollama pull qwen:7b
-# ollama pull yi:34b
 # ollama pull gemma:7b
 ```
 
@@ -297,7 +294,7 @@ python llm_client_example.py --llm-type ollama --model-name llama3
 如有任何问题或建议，请通过以下方式联系我们：
 
 - 项目主页: [GitHub 仓库](https://github.com/yourusername/llm-web-search-plugin)
-- 电子邮件: your.email@example.com
+- 电子邮件: 1692775560@qq.com
 
 ---
 
