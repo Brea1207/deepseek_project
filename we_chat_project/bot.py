@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 # DeepSeek API 配置
 DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions"  
-DEEPSEEK_API_KEY = 'your api key'
+DEEPSEEK_API_KEY = 'sk-ecab03d143354f589e29600ca46ef691'
 
 # 创建Flask应用
 app = Flask(__name__, static_folder='static')
